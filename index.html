@@ -615,19 +615,20 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
     </div>
     <div id="g1" style="display:none;padding:0 16px 14px;border-top:1px solid var(--border);">
       <div style="font-size:12px;color:var(--text2);line-height:1.9;margin-top:12px;">
-        <strong style="color:var(--text);">① メーター撮影</strong><br>
-        ODOメーター（走行距離）をアップで撮影してください。OCRモードなら自動で数値を読み取ります。<br><br>
-        <strong style="color:var(--text);">② 基本情報</strong><br>
-        乗務員名・車両番号・点呼実施者を入力します。一度入力すると次回から自動で入力されます。<br><br>
-        <strong style="color:var(--text);">③ メーターモード</strong><br>
-        📷カメラ+OCR：撮影後に走行距離を自動読み取り（APIキー設定が必要）<br>
-        ✏️手動入力：カメラを使わず走行距離を手入力<br><br>
+        <strong style="color:var(--text);">① 記録ボタン</strong><br>
+        画面上部のバナー（乗務前／乗務後の表示）のすぐ下に大きな記録ボタンがあります。入力完了後にタップしてください。乗務前点呼が完了すると自動で乗務後の入力待ちに切り替わります。<br><br>
+        <strong style="color:var(--text);">② メーター撮影</strong><br>
+        ODOメーター（走行距離）をアップで撮影してください。OCRモードなら自動で数値を読み取ります。走行距離は前回の乗務後点呼の値が自動入力されます。<br><br>
+        <strong style="color:var(--text);">③ 基本情報・メーターモード設定</strong><br>
+        ⚙️設定タブで乗務員名・車両番号・点呼実施者・メーターモードを設定します。一度設定すると次回から自動で反映されます。<br>
+        🤖カメラ+OCR：撮影後に走行距離を自動読み取り（Google Vision APIキー設定が必要）<br>
+        ✏️手動入力：走行距離を手入力（音声入力も可能）<br><br>
         <strong style="color:var(--text);">④ アルコール検知</strong><br>
         スライダーを動かして数値を入力します。0.15mg/L以上で要確認フラグが立ちます。<br><br>
         <strong style="color:var(--text);">⑤ 健康確認</strong><br>
         各項目をトグルで確認してください。問題がある場合はオフにしてください。<br><br>
-        <strong style="color:var(--text);">⑥ 記録ボタン</strong><br>
-        乗務前点呼が完了すると、自動で乗務後点呼の入力待ちに切り替わります。
+        <strong style="color:var(--text);">⑥ 記録の修正</strong><br>
+        記録後に修正が必要な場合は、履歴タブから「削除」して登録しなおしてください。
       </div>
     </div>
   </div>
@@ -672,11 +673,16 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
     <div id="g3" style="display:none;padding:0 16px 14px;border-top:1px solid var(--border);">
       <div style="font-size:12px;color:var(--text2);line-height:1.9;margin-top:12px;">
         <strong style="color:var(--text);">履歴タブ</strong><br>
-        過去の点呼記録を一覧で確認できます。乗務前・乗務後・要確認でフィルタリングできます。<br><br>
+        過去の点呼記録を一覧で確認できます。乗務前・乗務後・要確認でフィルタリングできます。<br>
+        一覧には日時・乗務員名・要確認フラグが表示されます。<br><br>
+        <strong style="color:var(--text);">詳細ボタン</strong><br>
+        一覧の「詳細」をタップするとアルコール数値・健康状態・走行距離など全情報が表示されます。<br><br>
+        <strong style="color:var(--text);">削除ボタン</strong><br>
+        一覧の「削除」をタップするとその記録を削除できます。修正したい場合は削除して登録しなおしてください。<br><br>
         <strong style="color:var(--text);">集計タブ</strong><br>
         月ごとの点呼回数・要確認件数を確認できます。◀▶ボタンで月を切り替えられます。<br><br>
         <strong style="color:var(--text);">CSVダウンロード</strong><br>
-        集計タブの「この月のCSVをダウンロード」ボタンで月単位のデータをエクスポートできます。Excelで開けます。
+        集計タブの「📥 点呼記録CSVをダウンロード」「📥 業務記録CSVをダウンロード」で月単位のデータをエクスポートできます。Excelで開けます。
       </div>
     </div>
   </div>
@@ -696,7 +702,7 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
         3. APIキー（AIzaから始まる文字列）を取得<br>
         4. この設定タブの「Google Vision APIキー」欄に入力して保存<br><br>
         <strong style="color:var(--text);">OCRモードの選択</strong><br>
-        基本情報の折りたたみ内「メーターモード」で「カメラ+OCR」を選択してください。
+        ⚙️設定タブの「メーターモード」で「カメラ+OCR」を選択してください。
       </div>
     </div>
   </div>
