@@ -1180,27 +1180,21 @@ function renderHistory(filter) {
   const modeIcon = {ocr:'🤖', manual:'✏️'};
   list.innerHTML = recs.map(r => {
     const lbl = r.type==='before'?'乗務前':'乗務後';
-    const alcOk = r.alcohol<0.15;
-    const hlthOk = r.sleep && r.health && r.meds;
-    return `<div class="rec-card ${r.type}">
-      <div class="rec-top">
-        <span class="rec-badge ${r.type}">${lbl}点呼 ${r.hasIssue?'⚠️':'✅'}</span>
-        <button class="del-btn" onclick="delRecord(${r.id})">削除</button>
-      </div>
-      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;">
-        <div class="rec-name">👤 ${r.driver||'（氏名未入力）'}</div>
-        <div class="rec-time">${r.dateStr} ${r.timeStr}</div>
-      </div>
-      <div class="rec-grid">
-        <div class="rec-item"><div class="rec-item-label">車両番号</div><div class="rec-item-val">${r.vehicle}</div></div>
-        <div class="rec-item"><div class="rec-item-label">点呼方法</div><div class="rec-item-val">${r.method}</div></div>
-        <div class="rec-item"><div class="rec-item-label">アルコール</div><div class="rec-item-val ${alcOk?'ok':'ng'}">${r.alcohol.toFixed(2)} mg/L ${alcOk?'✓':'✗'}</div></div>
-        <div class="rec-item"><div class="rec-item-label">健康状態</div><div class="rec-item-val ${hlthOk?'ok':'ng'}">${hlthOk?'良好 ✓':'要確認 ✗'}</div></div>
-        ${r.odometer?`<div class="rec-item" style="grid-column:span 2"><div class="rec-item-label">走行距離</div><div class="rec-item-val info">${parseInt(r.odometer).toLocaleString()} km ${modeIcon[r.meterMode]||''}</div></div>`:''}
-        ${r.route?`<div class="rec-item" style="grid-column:span 2"><div class="rec-item-label">経路</div><div class="rec-item-val" style="font-size:12px;">${r.route}</div></div>`:''}
-      </div>
-      ${r.notes?`<div style="margin-top:8px;padding:8px;background:var(--surface2);border-radius:6px;font-size:12px;color:var(--text2);">📝 ${r.notes}</div>`:''}
-    </div>`;
+    const flag = r.hasIssue ? '⚠️ 要確認' : '✅ 正常';
+    const flagColor = r.hasIssue ? 'var(--red)' : 'var(--green)';
+    return '<div class="rec-card ' + r.type + '" style="padding:12px 14px;">'
+      + '<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">'
+      + '<div style="display:flex;align-items:center;gap:8px;min-width:0;flex:1;">'
+      + '<span class="rec-badge ' + r.type + '" style="flex-shrink:0;">' + lbl + '</span>'
+      + '<div style="min-width:0;">'
+      + '<div style="font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">👤 ' + (r.driver||'（氏名未入力）') + '</div>'
+      + '<div style="font-size:11px;color:var(--text3);margin-top:2px;">' + r.dateStr + ' ' + r.timeStr + '</div>'
+      + '</div></div>'
+      + '<div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">'
+      + '<span style="font-size:12px;font-weight:700;color:' + flagColor + ';">' + flag + '</span>'
+      + '<button class="del-btn" onclick="showRecordDetail(' + r.id + ')" style="border-color:var(--blue);color:var(--blue);">詳細</button>'
+      + '<button class="del-btn" onclick="delRecord(' + r.id + ')">削除</button>'
+      + '</div></div></div>';
   }).join('');
 }
 function delRecord(id) {
