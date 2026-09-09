@@ -870,7 +870,15 @@ function loadBasic() {
   applyMode();
   updateFoldSummary();
 
-
+  // 乗務前点呼時：最新の乗務後点呼のオドメーターをデフォルトに
+  if (currentType() === 'before') {
+    const afterRecs = records.filter(r => r.type === 'after' && r.odometer);
+    if (afterRecs.length) {
+      afterRecs.sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
+      const odoEl = document.getElementById('odometer');
+      if (odoEl && !odoEl.value) odoEl.value = afterRecs[0].odometer;
+    }
+  }
 }
 
 function saveBasic() {
